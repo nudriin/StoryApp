@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.nudriin.storyapp.R
 import com.nudriin.storyapp.common.AuthViewModel
 import com.nudriin.storyapp.data.dto.request.UserRegisterRequest
 import com.nudriin.storyapp.databinding.ActivityRegisterBinding
 import com.nudriin.storyapp.ui.MainActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
+import com.nudriin.storyapp.utils.showToast
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -57,6 +57,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     is MyResult.Success -> {
                         Log.d("RegisterActivity", result.data.toString())
+                        showToast(this, result.data.message)
                         binding.btnRegister.isEnabled = true
 //                        startActivity(Intent(this, LoginActivity::class.java))
                     }
@@ -64,10 +65,7 @@ class RegisterActivity : AppCompatActivity() {
                     is MyResult.Error -> {
                         binding.btnRegister.isEnabled = true
                         Log.d("RegisterActivity", result.error)
-
-//                        result.error.getContentIfNotHandled().let { toastText ->
-//                            showToast(this, toastText.toString())
-//                        }
+                        showToast(this, result.error)
                     }
                 }
             }
