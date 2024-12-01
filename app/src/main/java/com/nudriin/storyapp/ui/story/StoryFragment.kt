@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nudriin.storyapp.R
 import com.nudriin.storyapp.adapter.StoryAdapter
@@ -71,10 +72,24 @@ class StoryFragment : Fragment() {
         val adapter = StoryAdapter(storiesList)
         binding.rvStory.adapter = adapter
         adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
-            override fun onItemClicked(storyId: String) {
-                TODO("Not yet implemented")
+            override fun onItemClicked(name: String, description: String, photoUrl: String) {
+                moveToStoryDetail(name, description, photoUrl)
             }
         })
+    }
+
+    private fun moveToStoryDetail(
+        name: String,
+        description: String,
+        photoUrl: String
+    ) {
+        val toStoryDetail = StoryFragmentDirections.actionStoryFragmentToStoryDetailFragment3(
+            name,
+            description,
+            photoUrl
+        )
+
+        Navigation.findNavController(binding.root).navigate(toStoryDetail)
     }
 
     private fun showLoading(isLoading: Boolean) {

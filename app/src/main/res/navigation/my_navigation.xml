@@ -9,5 +9,24 @@
         android:id="@+id/storyFragment"
         android:name="com.nudriin.storyapp.ui.story.StoryFragment"
         android:label="fragment_story"
-        tools:layout="@layout/fragment_story" />
+        tools:layout="@layout/fragment_story">
+        <action
+            android:id="@+id/action_storyFragment_to_storyDetailFragment3"
+            app:destination="@id/storyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storyDetailFragment"
+        android:name="com.nudriin.storyapp.ui.storyDetail.StoryDetailFragment"
+        android:label="fragment_story_detail"
+        tools:layout="@layout/fragment_story_detail">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

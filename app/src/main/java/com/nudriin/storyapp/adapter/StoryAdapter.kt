@@ -25,7 +25,9 @@ class StoryAdapter(private val storyList: List<ListStoryItem>) :
         holder.bind(story)
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(
-                storyId = story.id,
+                name = story.name,
+                description = story.description,
+                photoUrl = story.photoUrl,
             )
         }
     }
@@ -36,7 +38,9 @@ class StoryAdapter(private val storyList: List<ListStoryItem>) :
 
     interface OnItemClickCallback {
         fun onItemClicked(
-            storyId: String,
+            name: String,
+            description: String,
+            photoUrl: String,
         )
     }
 

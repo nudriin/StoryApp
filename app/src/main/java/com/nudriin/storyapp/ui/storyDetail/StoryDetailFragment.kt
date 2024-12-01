@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.nudriin.storyapp.databinding.FragmentStoryDetailBinding
 
 class StoryDetailFragment : Fragment() {
@@ -19,8 +20,20 @@ class StoryDetailFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupView()
+    }
+
     private fun setupView() {
-        
+        val storyData = StoryDetailFragmentArgs.fromBundle(arguments as Bundle)
+        Glide.with(this).load(storyData.photoUrl).into(binding.ivStoryThumbnail)
+
+        with(binding) {
+            tvStoryName.text = storyData.name
+            tvStoryDescription.text = storyData.description
+        }
     }
 
 }
