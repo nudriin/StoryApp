@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nudriin.storyapp.common.AuthViewModel
 import com.nudriin.storyapp.databinding.ActivityWelcomeBinding
 import com.nudriin.storyapp.ui.MainActivity
+import com.nudriin.storyapp.ui.register.RegisterActivity
 import com.nudriin.storyapp.utils.ViewModelFactory
 
 class WelcomeActivity : AppCompatActivity() {
@@ -48,7 +49,10 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-//            startActivity(Intent(this, RegisterActivity::class.java))
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
     }
 

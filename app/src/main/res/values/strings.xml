@@ -6,4 +6,7 @@
     <string name="welcome_desc">Bagikan momen terbaikmu dengan cara yang spesial dan jadikan setiap cerita lebih bermakna. Ungkapkan kisah hidupmu, baik itu momen kecil yang hangat atau petualangan besar yang mendebarkan. Temukan inspirasi dari jutaan kisah menarik lainnya yang dibagikan oleh orang-orang di seluruh dunia. Karena setiap cerita memiliki keindahan, dan dunia ini penuh dengan hal-hal yang layak untuk diceritakan</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>
