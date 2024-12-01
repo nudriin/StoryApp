@@ -4,6 +4,7 @@ import android.content.Context
 import com.nudriin.storyapp.data.pref.UserPreference
 import com.nudriin.storyapp.data.pref.dataStore
 import com.nudriin.storyapp.data.repository.AuthRepository
+import com.nudriin.storyapp.data.repository.StoryRepository
 import com.nudriin.storyapp.data.retrofit.ApiConfig
 
 object Injection {
@@ -11,5 +12,11 @@ object Injection {
         val userPreference = UserPreference.getInstance(context.dataStore)
         val apiService = ApiConfig.getApiService()
         return AuthRepository.getInstance(userPreference, apiService)
+    }
+
+    fun provideStoryRepository(context: Context): StoryRepository {
+        val userPreference = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getApiService()
+        return StoryRepository.getInstance(userPreference, apiService)
     }
 }
