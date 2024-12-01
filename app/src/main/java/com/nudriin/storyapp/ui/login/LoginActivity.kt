@@ -1,21 +1,22 @@
-package com.nudriin.storyapp.ui.register
+package com.nudriin.storyapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.nudriin.storyapp.common.AuthViewModel
-import com.nudriin.storyapp.data.dto.request.UserRegisterRequest
-import com.nudriin.storyapp.databinding.ActivityRegisterBinding
+import com.nudriin.storyapp.data.dto.request.UserLoginRequest
+import com.nudriin.storyapp.data.pref.UserModel
+import com.nudriin.storyapp.databinding.ActivityLoginBinding
 import com.nudriin.storyapp.ui.MainActivity
-import com.nudriin.storyapp.ui.login.LoginActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.showToast
 
-class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
+class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
 
     private val authViewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this)
@@ -23,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         authViewModel.getSession().observe(this) { session ->
@@ -39,41 +40,56 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.btnRegister.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
+        binding.btnLogin.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            authViewModel.register(
-                UserRegisterRequest(
-                    name = name,
+            authViewModel.login(
+                UserLoginRequest(
                     email = email,
                     password = password
                 )
             ).observe(this) { result ->
                 when (result) {
                     is MyResult.Loading -> {
-                        binding.btnRegister.isEnabled = false
+                        binding.btnLogin.isEnabled = false
+                        showLoading(true)
                     }
 
                     is MyResult.Success -> {
-                        Log.d("RegisterActivity", result.data.toString())
+                        showLoading(false)
                         showToast(this, result.data.message)
-                        binding.btnRegister.isEnabled = true
-                        startActivity(Intent(this, LoginActivity::class.java))
+                        binding.btnLogin.isEnabled = true
+
+                        authViewModel.saveSession(
+                            UserModel(
+                                id = result.data.loginResult.userId,
+                                name = result.data.loginResult.name,
+                                token = result.data.loginResult.token,
+                                isLogin = true
+                            )
+                        )
+
+                        Log.d("LoginActivity", result.data.toString())
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
 
                     is MyResult.Error -> {
-                        binding.btnRegister.isEnabled = true
-                        Log.d("RegisterActivity", result.error)
+                        showLoading(false)
+                        binding.btnLogin.isEnabled = true
                         showToast(this, result.error)
+                        Log.d("LoginActivity", result.error)
                     }
                 }
             }
         }
-
-
     }
 
-
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }
