@@ -51,7 +51,7 @@ class AddStoryActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnCamera.setOnClickListener { startCamera() }
-        binding.btnUpload.setOnClickListener { uploadImage() }
+        binding.buttonAdd.setOnClickListener { uploadImage() }
     }
 
     private val requestPermissionLauncher =
@@ -105,7 +105,7 @@ class AddStoryActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-            val description = binding.descriptionEditText.text.toString()
+            val description = binding.edAddDescription.text.toString()
 
             val requestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
