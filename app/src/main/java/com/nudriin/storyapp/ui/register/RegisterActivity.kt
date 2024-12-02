@@ -3,6 +3,7 @@ package com.nudriin.storyapp.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.nudriin.storyapp.common.AuthViewModel
@@ -53,17 +54,20 @@ class RegisterActivity : AppCompatActivity() {
             ).observe(this) { result ->
                 when (result) {
                     is MyResult.Loading -> {
+                        showLoading(true)
                         binding.btnRegister.isEnabled = false
                     }
 
                     is MyResult.Success -> {
                         Log.d("RegisterActivity", result.data.toString())
+                        showLoading(false)
                         showToast(this, result.data.message)
                         binding.btnRegister.isEnabled = true
                         startActivity(Intent(this, LoginActivity::class.java))
                     }
 
                     is MyResult.Error -> {
+                        showLoading(false)
                         binding.btnRegister.isEnabled = true
                         Log.d("RegisterActivity", result.error)
                         showToast(this, result.error)
@@ -71,9 +75,13 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
-
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }
