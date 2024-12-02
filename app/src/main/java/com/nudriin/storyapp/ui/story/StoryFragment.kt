@@ -73,7 +73,7 @@ class StoryFragment : Fragment() {
     private fun setupAction() {
         binding.topAppBar.setOnMenuItemClickListener { menu ->
             when (menu.itemId) {
-                R.id.logout -> {
+                R.id.action_logout -> {
                     authViewModel.logout()
                     true
                 }
