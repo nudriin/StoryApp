@@ -13,4 +13,6 @@
     <string name="upload">Upload</string>
     <string name="logout">Logout</string>
     <string name="language">Language</string>
+    <string name="appwidget_text">Story App</string>
+    <string name="empty_text">No data</string>
 </resources>

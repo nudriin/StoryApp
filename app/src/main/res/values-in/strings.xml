@@ -14,4 +14,6 @@
     <string name="upload">Unggah</string>
     <string name="logout">Keluar</string>
     <string name="language">Bahasa</string>
+    <string name="appwidget_text">Story App</string>
+    <string name="empty_text">Tidak ada data</string>
 </resources>
