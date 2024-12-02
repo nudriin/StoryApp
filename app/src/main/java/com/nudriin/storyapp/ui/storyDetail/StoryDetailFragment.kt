@@ -28,11 +28,11 @@ class StoryDetailFragment : Fragment() {
 
     private fun setupView() {
         val storyData = StoryDetailFragmentArgs.fromBundle(arguments as Bundle)
-        Glide.with(this).load(storyData.photoUrl).into(binding.ivStoryThumbnail)
+        Glide.with(this).load(storyData.photoUrl).into(binding.ivDetailPhoto)
 
         with(binding) {
-            tvStoryName.text = storyData.name
-            tvStoryDescription.text = storyData.description
+            tvDetailName.text = storyData.name
+            tvDetailDescription.text = storyData.description
         }
     }
 
