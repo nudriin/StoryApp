@@ -1,5 +1,6 @@
 package com.nudriin.storyapp.ui.story
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import com.nudriin.storyapp.adapter.StoryAdapter
 import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.databinding.FragmentStoryBinding
+import com.nudriin.storyapp.ui.addStory.AddStoryActivity
+import com.nudriin.storyapp.ui.login.LoginActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.showToast
@@ -20,7 +23,7 @@ import com.nudriin.storyapp.utils.showToast
 class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: StoryViewModel by viewModels {
+    private val storyViewModel: StoryViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
 
@@ -43,7 +46,7 @@ class StoryFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.rvStory.layoutManager = layoutManager
 
-        homeViewModel.getAllStories().observe(viewLifecycleOwner) { result ->
+        storyViewModel.getAllStories().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is MyResult.Loading -> {
                     showLoading(true)
@@ -64,7 +67,10 @@ class StoryFragment : Fragment() {
 
     private fun setupAction() {
         binding.btnAdd.setOnClickListener {
-
+            val intent = Intent(requireContext(), AddStoryActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
     }
 

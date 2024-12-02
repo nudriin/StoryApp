@@ -7,6 +7,5 @@ class StoryViewModel(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
     fun getAllStories() = storyRepository.getAllStories()
-
     fun getStoriesById(id: String) = storyRepository.getStoriesById(id)
 }
