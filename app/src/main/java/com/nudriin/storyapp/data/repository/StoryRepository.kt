@@ -8,6 +8,8 @@ import com.nudriin.storyapp.data.retrofit.ApiService
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.toJWT
 import kotlinx.coroutines.flow.first
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 
 class StoryRepository private constructor(
@@ -34,6 +36,25 @@ class StoryRepository private constructor(
         try {
             val response =
                 apiService.getStoriesById(userPreference.getSession().first().token.toJWT(), id)
+            emit(MyResult.Success(response))
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val body = Gson().fromJson(response, Response::class.java)
+            emit(MyResult.Error(body.message))
+        } catch (e: Exception) {
+            emit(MyResult.Error(e.message ?: "An error occurred"))
+        }
+    }
+
+    fun addStory(description: RequestBody, file: MultipartBody.Part) = liveData {
+        emit(MyResult.Loading)
+        try {
+            val response =
+                apiService.addStories(
+                    token = userPreference.getSession().first().token.toJWT(),
+                    description = description,
+                    file = file
+                )
             emit(MyResult.Success(response))
         } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
