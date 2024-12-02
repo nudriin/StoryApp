@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nudriin.storyapp.R
 import com.nudriin.storyapp.adapter.StoryAdapter
+import com.nudriin.storyapp.common.AuthViewModel
 import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.databinding.FragmentStoryBinding
@@ -24,6 +26,9 @@ class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private val storyViewModel: StoryViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
+    private val authViewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
 
@@ -66,6 +71,17 @@ class StoryFragment : Fragment() {
     }
 
     private fun setupAction() {
+        binding.topAppBar.setOnMenuItemClickListener { menu ->
+            when (menu.itemId) {
+                R.id.logout -> {
+                    authViewModel.logout()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         binding.btnAdd.setOnClickListener {
             val intent = Intent(requireContext(), AddStoryActivity::class.java)
             intent.flags =
