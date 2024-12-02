@@ -1,6 +1,7 @@
 package com.nudriin.storyapp.ui.addStory
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.databinding.ActivityAddStoryBinding
+import com.nudriin.storyapp.ui.MainActivity
+import com.nudriin.storyapp.ui.login.LoginActivity
+import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.getImageUri
 import com.nudriin.storyapp.utils.reduceFileImage
@@ -109,7 +113,26 @@ class AddStoryActivity : AppCompatActivity() {
                 imageFile.name,
                 requestImageFile
             )
-        } ?: showToast(this, "")
+
+            storyViewModel.addStory(requestBody, multipartBody).observe(this) { result ->
+                when (result) {
+                    is MyResult.Loading -> {
+                    }
+
+                    is MyResult.Success -> {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    }
+
+                    is MyResult.Error -> {
+                        showToast(this, result.error)
+                    }
+                }
+
+            }
+        } ?: showToast(this, "Image is empty")
     }
 
     private fun showImage() {
