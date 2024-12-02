@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -117,9 +118,11 @@ class AddStoryActivity : AppCompatActivity() {
             storyViewModel.addStory(requestBody, multipartBody).observe(this) { result ->
                 when (result) {
                     is MyResult.Loading -> {
+                        showLoading(true)
                     }
 
                     is MyResult.Success -> {
+                        showLoading(false)
                         val intent = Intent(this, MainActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -127,6 +130,7 @@ class AddStoryActivity : AppCompatActivity() {
                     }
 
                     is MyResult.Error -> {
+                        showLoading(false)
                         showToast(this, result.error)
                     }
                 }
@@ -139,6 +143,14 @@ class AddStoryActivity : AppCompatActivity() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
             binding.ivUploadPreview.setImageURI(it)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 
