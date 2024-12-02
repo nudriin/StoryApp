@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,6 @@ import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.databinding.FragmentStoryBinding
 import com.nudriin.storyapp.ui.addStory.AddStoryActivity
-import com.nudriin.storyapp.ui.login.LoginActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.showToast

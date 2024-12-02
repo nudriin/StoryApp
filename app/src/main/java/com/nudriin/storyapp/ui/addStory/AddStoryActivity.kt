@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat
 import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.databinding.ActivityAddStoryBinding
 import com.nudriin.storyapp.ui.MainActivity
-import com.nudriin.storyapp.ui.login.LoginActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.getImageUri

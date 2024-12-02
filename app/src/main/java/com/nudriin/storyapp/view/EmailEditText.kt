@@ -15,7 +15,6 @@ class EmailEditText @JvmOverloads constructor(
     init {
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -23,7 +22,6 @@ class EmailEditText @JvmOverloads constructor(
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                //
             }
 
         })

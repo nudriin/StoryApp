@@ -10,8 +10,6 @@ class StoryViewModel(
 ) : ViewModel() {
     fun getAllStories() = storyRepository.getAllStories()
 
-    fun getStoriesById(id: String) = storyRepository.getStoriesById(id)
-
     fun addStory(description: RequestBody, file: MultipartBody.Part) =
         storyRepository.addStory(description, file)
 }
