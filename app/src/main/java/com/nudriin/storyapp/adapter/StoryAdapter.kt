@@ -50,11 +50,11 @@ class StoryAdapter(private val storyList: List<ListStoryItem>) :
             with(binding) {
                 Glide.with(root.context)
                     .load(story.photoUrl)
-                    .into(ivStoryThumbnail)
+                    .into(ivItemPhoto)
 
-                tvStoryTitle.text = story.name
+                tvItemName.text = story.name
 
-                tvStoryDescription.text = story.description
+                tvItemDescription.text = story.description
             }
         }
 
