@@ -1,5 +1,8 @@
 package com.nudriin.storyapp.ui.storyDetail
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +27,7 @@ class StoryDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
+        playAnimation()
     }
 
     private fun setupView() {
@@ -33,6 +37,19 @@ class StoryDetailFragment : Fragment() {
         with(binding) {
             tvDetailName.text = storyData.name
             tvDetailDescription.text = storyData.description
+        }
+    }
+
+    @SuppressLint("Recycle")
+    private fun playAnimation() {
+        val image = ObjectAnimator.ofFloat(binding.ivDetailPhoto, View.ALPHA, 1f).setDuration(300)
+        val name = ObjectAnimator.ofFloat(binding.tvDetailName, View.ALPHA, 1f).setDuration(300)
+        val description =
+            ObjectAnimator.ofFloat(binding.tvDetailDescription, View.ALPHA, 1f).setDuration(300)
+
+        AnimatorSet().apply {
+            playSequentially(image, name, description)
+            start()
         }
     }
 
