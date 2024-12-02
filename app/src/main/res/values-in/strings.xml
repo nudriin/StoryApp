@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="welcome_text">Selamat datang di story app!</string>
+    <string name="welcome_desc">Bagikan momen terbaikmu dengan cara yang spesial dan jadikan setiap cerita lebih bermakna. Ungkapkan kisah hidupmu, baik itu momen kecil yang hangat atau petualangan besar yang mendebarkan. Temukan inspirasi dari jutaan kisah menarik lainnya yang dibagikan oleh orang-orang di seluruh dunia. Karena setiap cerita memiliki keindahan, dan dunia ini penuh dengan hal-hal yang layak untuk diceritakan</string>
+    <string name="register">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="name">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Sandi</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="description">Deskripsi</string>
+    <string name="upload">Unggah</string>
+    <string name="logout">Keluar</string>
+</resources>

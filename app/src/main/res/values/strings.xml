@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">StoryApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome_text">Selamat datang di story app!</string>
-    <string name="welcome_desc">Bagikan momen terbaikmu dengan cara yang spesial dan jadikan setiap cerita lebih bermakna. Ungkapkan kisah hidupmu, baik itu momen kecil yang hangat atau petualangan besar yang mendebarkan. Temukan inspirasi dari jutaan kisah menarik lainnya yang dibagikan oleh orang-orang di seluruh dunia. Karena setiap cerita memiliki keindahan, dan dunia ini penuh dengan hal-hal yang layak untuk diceritakan</string>
+    <string name="welcome_text">Welcome to story app!</string>
+    <string name="welcome_desc">Share your best moments in a special way and make every story more meaningful. Tell your life story, whether its a small, warm moment or a big, thrilling adventure. Get inspired by millions of other fascinating stories shared by people around the world. Because every story has beauty, and the world is full of things worth telling.</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="name">Name</string>
