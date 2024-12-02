@@ -41,9 +41,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
+            val name = binding.edRegisterName.text.toString()
+            val email = binding.edRegisterEmail.text.toString()
+            val password = binding.edRegisterPassword.text.toString()
 
             authViewModel.register(
                 UserRegisterRequest(
