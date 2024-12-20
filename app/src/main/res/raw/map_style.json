@@ -26,7 +26,15 @@
     "elementType": "labels.icon",
     "stylers": [
       {
-        "visibility": "off"
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "color": "#ff4747"
       }
     ]
   },
@@ -34,7 +42,10 @@
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#757575"
+        "color": "#ff0000"
+      },
+      {
+        "visibility": "simplified"
       }
     ]
   },
@@ -42,7 +53,7 @@
     "elementType": "labels.text.stroke",
     "stylers": [
       {
-        "color": "#212121"
+        "color": "#121626"
       }
     ]
   },
