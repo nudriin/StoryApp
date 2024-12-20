@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nudriin.storyapp.R
+import com.nudriin.storyapp.adapter.LoadingStateAdapter
 import com.nudriin.storyapp.adapter.StoryAdapter
 import com.nudriin.storyapp.common.AuthViewModel
 import com.nudriin.storyapp.common.StoryViewModel
@@ -49,7 +50,11 @@ class StoryFragment : Fragment() {
         binding.rvStory.layoutManager = layoutManager
 
         val adapter = StoryAdapter()
-        binding.rvStory.adapter = adapter
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         storyViewModel.stories.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }

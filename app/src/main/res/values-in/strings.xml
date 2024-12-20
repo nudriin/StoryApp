@@ -16,4 +16,7 @@
     <string name="language">Bahasa</string>
     <string name="appwidget_text">Story App</string>
     <string name="empty_text">Tidak ada data</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">Peta</string>
+    <string name="retry">Coba lagi</string>
 </resources>
