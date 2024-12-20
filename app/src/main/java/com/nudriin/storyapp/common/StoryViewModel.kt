@@ -12,4 +12,6 @@ class StoryViewModel(
 
     fun addStory(description: RequestBody, file: MultipartBody.Part) =
         storyRepository.addStory(description, file)
+
+    fun getAllStoriesWithLocation() = storyRepository.getAllStoriesWithLocation()
 }
