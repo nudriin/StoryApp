@@ -1,6 +1,5 @@
 package com.nudriin.storyapp
 
-import com.google.gson.annotations.SerializedName
 import com.nudriin.storyapp.data.dto.response.ListStoryItem
 
 object DataDummy {

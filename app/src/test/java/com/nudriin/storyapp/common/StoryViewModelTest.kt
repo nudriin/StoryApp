@@ -17,7 +17,6 @@ import com.nudriin.storyapp.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -87,6 +86,7 @@ class StoryPagingSource : PagingSource<Int, LiveData<List<ListStoryItem>>>() {
         }
     }
 
+    @Suppress("SameReturnValue", "unused")
     override fun getRefreshKey(state: PagingState<Int, LiveData<List<ListStoryItem>>>): Int {
         return 0
     }

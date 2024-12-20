@@ -29,7 +29,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/ll_btn"
@@ -47,13 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
-            android:text="@string/gallery" />
+            android:text="@string/gallery"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btn_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/camera" />
+            android:text="@string/camera"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 

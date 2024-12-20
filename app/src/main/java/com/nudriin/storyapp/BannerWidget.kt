@@ -17,6 +17,7 @@ class BannerWidget : AppWidgetProvider() {
         private const val TOAST_ACTION = "TOAST_ACTION"
         const val EXTRA_ITEM = "EXTRA_ITEM"
 
+        @Suppress("DEPRECATION")
         private fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,

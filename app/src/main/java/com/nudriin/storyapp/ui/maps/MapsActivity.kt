@@ -86,7 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 is MyResult.Success -> {
-                    result.data.listStory.forEach() { data ->
+                    result.data.listStory.forEach { data ->
                         val latLng = LatLng(data.lat!!, data.lon!!)
                         mMap.addMarker(
                             MarkerOptions()

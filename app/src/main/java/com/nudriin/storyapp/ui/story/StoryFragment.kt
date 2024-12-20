@@ -107,13 +107,4 @@ class StoryFragment : Fragment() {
 
         Navigation.findNavController(binding.root).navigate(toStoryDetail)
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
-
 }
