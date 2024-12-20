@@ -17,6 +17,7 @@ import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.databinding.FragmentStoryBinding
 import com.nudriin.storyapp.ui.addStory.AddStoryActivity
+import com.nudriin.storyapp.ui.maps.MapsActivity
 import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
 import com.nudriin.storyapp.utils.showToast
@@ -79,6 +80,12 @@ class StoryFragment : Fragment() {
 
                 R.id.action_language -> {
                     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                    true
+                }
+
+                R.id.action_maps -> {
+                    val intent = Intent(requireContext(), MapsActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 

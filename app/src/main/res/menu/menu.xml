@@ -7,5 +7,8 @@
         <item
             android:id="@+id/action_language"
             android:title="@string/language" />
+        <item
+            android:id="@+id/action_maps"
+            android:title="@string/maps" />
     </group>
 </menu>
