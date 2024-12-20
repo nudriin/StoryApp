@@ -33,7 +33,10 @@ interface ApiService {
     ): Response
 
     @GET("stories")
-    suspend fun getAllStories(@Header("Authorization") token: String): GetAllStoryResponse
+    suspend fun getAllStories(
+        @Header("Authorization") token: String, @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): GetAllStoryResponse
 
     @GET("/stories/{id}")
     suspend fun getStoriesById(

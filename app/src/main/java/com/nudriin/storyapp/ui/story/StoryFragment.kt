@@ -14,13 +14,10 @@ import com.nudriin.storyapp.R
 import com.nudriin.storyapp.adapter.StoryAdapter
 import com.nudriin.storyapp.common.AuthViewModel
 import com.nudriin.storyapp.common.StoryViewModel
-import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.databinding.FragmentStoryBinding
 import com.nudriin.storyapp.ui.addStory.AddStoryActivity
 import com.nudriin.storyapp.ui.maps.MapsActivity
-import com.nudriin.storyapp.utils.MyResult
 import com.nudriin.storyapp.utils.ViewModelFactory
-import com.nudriin.storyapp.utils.showToast
 
 class StoryFragment : Fragment() {
     private var _binding: FragmentStoryBinding? = null
@@ -51,23 +48,16 @@ class StoryFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.rvStory.layoutManager = layoutManager
 
-        storyViewModel.getAllStories().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is MyResult.Loading -> {
-                    showLoading(true)
-                }
-
-                is MyResult.Success -> {
-                    showLoading(false)
-                    setStoriesList(result.data.listStory)
-                }
-
-                is MyResult.Error -> {
-                    showLoading(false)
-                    showToast(requireContext(), result.error)
-                }
-            }
+        val adapter = StoryAdapter()
+        binding.rvStory.adapter = adapter
+        storyViewModel.stories.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
         }
+        adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
+            override fun onItemClicked(name: String, description: String, photoUrl: String) {
+                moveToStoryDetail(name, description, photoUrl)
+            }
+        })
     }
 
     private fun setupAction() {
@@ -97,16 +87,6 @@ class StoryFragment : Fragment() {
             val intent = Intent(requireContext(), AddStoryActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun setStoriesList(storiesList: List<ListStoryItem>) {
-        val adapter = StoryAdapter(storiesList)
-        binding.rvStory.adapter = adapter
-        adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
-            override fun onItemClicked(name: String, description: String, photoUrl: String) {
-                moveToStoryDetail(name, description, photoUrl)
-            }
-        })
     }
 
     private fun moveToStoryDetail(

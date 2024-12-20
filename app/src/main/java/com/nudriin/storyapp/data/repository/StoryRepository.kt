@@ -1,7 +1,14 @@
 package com.nudriin.storyapp.data.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.google.gson.Gson
+import com.nudriin.storyapp.data.StoryPagingSource
+import com.nudriin.storyapp.data.dto.response.ListStoryItem
 import com.nudriin.storyapp.data.dto.response.Response
 import com.nudriin.storyapp.data.pref.UserPreference
 import com.nudriin.storyapp.data.retrofit.ApiService
@@ -16,36 +23,17 @@ class StoryRepository private constructor(
     private val userPreference: UserPreference,
     private val apiService: ApiService
 ) {
-    fun getAllStories() = liveData {
-        emit(MyResult.Loading)
-        try {
-            val response =
-                apiService.getAllStories(userPreference.getSession().first().token.toJWT())
-            emit(MyResult.Success(response))
-        } catch (e: HttpException) {
-            val response = e.response()?.errorBody()?.string()
-            val body = Gson().fromJson(response, Response::class.java)
-            emit(MyResult.Error(body.message))
-        } catch (e: Exception) {
-            emit(MyResult.Error(e.message ?: "An error occurred"))
-        }
+    fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(userPreference, apiService)
+            }
+        ).liveData
     }
-
-    fun getStoriesById(id: String) = liveData {
-        emit(MyResult.Loading)
-        try {
-            val response =
-                apiService.getStoriesById(userPreference.getSession().first().token.toJWT(), id)
-            emit(MyResult.Success(response))
-        } catch (e: HttpException) {
-            val response = e.response()?.errorBody()?.string()
-            val body = Gson().fromJson(response, Response::class.java)
-            emit(MyResult.Error(body.message))
-        } catch (e: Exception) {
-            emit(MyResult.Error(e.message ?: "An error occurred"))
-        }
-    }
-
+    
     fun addStory(description: RequestBody, file: MultipartBody.Part) = liveData {
         emit(MyResult.Loading)
         try {
