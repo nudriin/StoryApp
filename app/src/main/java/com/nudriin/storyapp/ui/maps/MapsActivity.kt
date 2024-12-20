@@ -3,22 +3,34 @@ package com.nudriin.storyapp.ui.maps
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.nudriin.storyapp.R
+import com.nudriin.storyapp.common.StoryViewModel
 import com.nudriin.storyapp.databinding.ActivityMapsBinding
+import com.nudriin.storyapp.utils.MyResult
+import com.nudriin.storyapp.utils.ViewModelFactory
+import com.nudriin.storyapp.utils.showToast
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private val storyViewModel: StoryViewModel by viewModels {
+        ViewModelFactory.getInstance(this)
+    }
+    private val boundsBuilder = LatLngBounds.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
 
         getMyLocation()
+        setupView()
 
     }
 
@@ -65,4 +78,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
+
+    private fun setupView() {
+        storyViewModel.getAllStoriesWithLocation().observe(this) { result ->
+            when (result) {
+                is MyResult.Loading -> {
+                }
+
+                is MyResult.Success -> {
+                    result.data.listStory.forEach() { data ->
+                        val latLng = LatLng(data.lat!!, data.lon!!)
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(latLng)
+                                .title(data.name)
+                                .snippet(data.description)
+                        )
+                        boundsBuilder.include(latLng)
+                    }
+
+                    val bounds: LatLngBounds = boundsBuilder.build()
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLngBounds(
+                            bounds,
+                            resources.displayMetrics.widthPixels,
+                            resources.displayMetrics.heightPixels,
+                            300
+                        )
+                    )
+                }
+
+                is MyResult.Error -> {
+                    showToast(this, result.error)
+                }
+            }
+        }
+    }
+
 }

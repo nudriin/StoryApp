@@ -65,6 +65,21 @@ class StoryRepository private constructor(
         }
     }
 
+    fun getAllStoriesWithLocation() = liveData {
+        emit(MyResult.Loading)
+        try {
+            val response =
+                apiService.getStoriesWithLocation(userPreference.getSession().first().token.toJWT())
+            emit(MyResult.Success(response))
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val body = Gson().fromJson(response, Response::class.java)
+            emit(MyResult.Error(body.message))
+        } catch (e: Exception) {
+            emit(MyResult.Error(e.message ?: "An error occurred"))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null
